@@ -1,24 +1,46 @@
-import logo from './logo.svg';
-import './App.css';
+import { useContext, useState } from "react";
+import LeftSection from "./components/Section/LeftSection";
+import MiddleSection from "./components/Section/MiddleSection";
+import RightSection from "./components/Section/RightSection";
+import { MainContext } from "./context/CounterContex";
+import {Route, Routes} from "react-router-dom";
+import Profile from "./components/Section/Profile";
+import Auth from "./components/Auth/Auth";
 
 function App() {
+  const context = useContext(MainContext);
+  const [counter1, setCounter1] = useState(0);
+  const [counter2, setCounter2] = useState(0);
+  const [counter3, setCounter3] = useState(0);
+  const [counter4, setCounter4] = useState(0);
+  const [counter5, setCounter5] = useState(0);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <MainContext.Provider
+      value={{
+        counter1,
+        setCounter1,
+        counter2,
+        setCounter2,
+        counter3,
+        setCounter3,
+        counter4,
+        setCounter4,
+        counter5,
+        setCounter5,
+      }}
+    >
+      <div className="App">
+        <section className="w-[1540px] flex justify-between mx-auto p-5">
+          <LeftSection />
+            <Routes>
+                <Route path='/auth' element={<Auth/>}/>
+                <Route path='/profile' element={<Profile/>}/>
+            </Routes>
+          <RightSection />
+        </section>
+      </div>
+    </MainContext.Provider>
   );
 }
 
